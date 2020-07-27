@@ -12,8 +12,8 @@
         <title>Scrummage Accounts</title>
     </head>
     <body onload="myFunction()">
-	    {% extends "template.html" %}
-	    {% block content %}
+        {% extends "template.html" %}
+        {% block content %}
         {% if is_admin %}
         {% if form_step == 0 %}
         <main>
@@ -62,41 +62,21 @@
                     <button id="bottom_unblock_button" style="display: none;" class="button-disabled" onclick="return confirm('Are you sure you want to unblock the selected users: ' + getSelectValues() + '?') && sendRequest('Unblock');" disabled="true">Unblock User</button>
                     <button id="bottom_demote_button" style="display: none;" class="button-disabled" onclick="return confirm('Are you sure you want to demote the selected users: ' + getSelectValues() + '?') && sendRequest('Demote');" disabled="true">Demote User</button>
                     <button id="bottom_promote_button" style="display: none;" class="button-disabled" onclick="return confirm('Are you sure you want to promote the selected users: ' + getSelectValues() + '?') && sendRequest('Promote');" disabled="true">Promote User</button>
-                    <div id="admin-jwt-div">
-                        <table id="jwt-table">
-                            <tbody>
-                                <tr>
-                                    <td class="apitab" id="admin-apitab">Your API Key</td>
-                                    <td class="apitab" style="padding: 2px; display: inline-flex;">
-                                        <form class="jwt-form" action="{{ url_for('get_account_apikey', accountid=current_user_id) }}" method=post autocomplete="off">
-                                            <input type="image" id="sync" src="{{ url_for('static', filename='images/sync.png') }}" onmouseover="this.setAttribute('src', syncHov());" onmouseout="this.setAttribute('src', sync());">
-                                        </form>
-                                        <input id="copy" value="{{api_key}}" type="text">
-                                        {% if api_key %}
-                                        <div id="copy-div" onclick="copyTextFunc()" alt="Copy to Clipboard"><span class="large-screenshot"><img src="" class="large-image"/></span></div>
-                                        <script type="text/javascript">
-                                            function copyTextFunc() {
-                                              var copyText = document.getElementById("copy");
-                                              copyText.select();
-                                              copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-                                              document.execCommand("copy");
-                                            }
-
-                                            function syncHov() {
-                                                return "{{ url_for('static', filename='images/synchov.png') }}"
-                                            }
-
-
-                                            function sync() {
-                                                return "{{ url_for('static', filename='images/sync.png') }}"
-                                            }
-                                        </script>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <button id="copy" onclick="copyTextFunc()" class="button">Copy API Key</button>
+                    <form id="getapikey" class="form_left" action="{{ url_for('get_account_apikey', accountid=current_user_id) }}" method=post autocomplete="off">
+                        <input class="button" name="getapikey" type=submit value="Refresh API Key">
+                    </form>
+                    <script type="text/javascript">
+                    function copyTextFunc() {
+                        var dummy = document.createElement("input");
+                        document.body.appendChild(dummy);
+                        dummy.value = "{{api_key}}";
+                        dummy.select();
+                        dummy.setSelectionRange(0, 99999); /*For mobile devices*/
+                        document.execCommand("copy");
+                        document.body.removeChild(dummy);
+                    }
+                    </script>
                 </div>
             </div>
             <script type="text/javascript">
@@ -404,6 +384,6 @@
             </footer>
             {% endif %}
         {% endif %}
-    	{% endblock %}
+        {% endblock %}
     </body>
 </html>

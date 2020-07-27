@@ -811,8 +811,7 @@ table.dataTable,table.dataTable th,table.dataTable td
     top: 43px;
     left: 0px;
     right: 0px;
-    width: 560px;
-    text-align: center;
+    width: 550px;
 }
 
 .login_div {
@@ -1205,21 +1204,9 @@ table.dataTable,table.dataTable th,table.dataTable td
     overflow: hidden;
 }
 
-@-moz-document url-prefix() {
-	#accbuttons {
-	    width: 920px !important;
-	}
+#accbuttons {
+    width: 940px;
 }
-
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
-	#accbuttons {
-	    width: 864px;
-	}
-}
-
-/*#accbuttons {
-    width: 864px;
-}*/
 
 #resbuttons {
     width: 784px;
@@ -1266,30 +1253,6 @@ table.dataTable,table.dataTable th,table.dataTable td
 
 #sync:hover {
     background-image: url('../images/synchov.png');
-}
-
-#copy {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-}
-
-#copy-div {
-    background-image: url('../images/copy.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    padding: 10px 0px 0px 0px;
-    height: 15px;
-    width: 22px;
-    float: left;
-    -webkit-transition: all 0.30s ease-in-out;
-    -moz-transition: all 0.30s ease-in-out;
-    -ms-transition: all 0.30s ease-in-out;
-    -o-transition: all 0.30s ease-in-out;
-}
-
-#copy-div:hover {
-    background-image: url('../images/copyhov.png');
 }
 
 .screenshot {
@@ -1412,7 +1375,7 @@ table.dataTable,table.dataTable th,table.dataTable td
 
 .table_buttons {
     background-color: #303030;
-    width: 90px;
+    width: 80px;
     text-align: center;
     border-radius: 2px;
 }
@@ -1708,9 +1671,6 @@ body code.styled {
         padding-top: 10px;
         text-align: center;
     }
-/*    #deleteresult {
-        text-align: center;
-    }*/
     #desfreqlimtasktab {
         display: none;
     }
@@ -1870,7 +1830,7 @@ body code.styled {
     }
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1332px) {
     .buttons-bottom {
         position: unset;
         top: unset;
