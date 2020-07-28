@@ -21,3 +21,4 @@ tweepy
 ratelimiter
 pyleri
 publicsuffix2
+bs4
