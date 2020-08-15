@@ -17,7 +17,7 @@ if __name__ == '__main__':
         from crontab import CronTab
         from logging.handlers import RotatingFileHandler
         from ratelimiter import RateLimiter
-        import os, re, plugin_caller, getpass, time, sys, threading, html, secrets, jwt, plugins.common.Connectors as Connectors, plugins.common.General as General, logging
+        import os, re, plugin_caller, getpass, time, sys, threading, html, secrets, jwt, logging, plugins.common.Connectors as Connectors, plugins.common.General as General
 
         Valid_Plugins = ["Ahmia Darkweb Search", "Blockchain Bitcoin Address Search", "Blockchain Bitcoin Cash Address Search", "Blockchain Ethereum Address Search", "Blockchain Bitcoin Transaction Search", "Blockchain Bitcoin Cash Transaction Search", "Blockchain Ethereum Transaction Search", "Blockchain Monero Transaction Search", "BSB Search", "Business Search - American Central Index Key", "Business Search - American Company Name", "Business Search - Australian Business Number", "Business Search - Australian Company Name", "Business Search - Canadian Business Number", "Business Search - Canadian Company Name", "Business Search - New Zealand Business Number", "Business Search - New Zealand Company Name", "Business Search - United Kingdom Business Number", "Business Search - United Kingdom Company Name", "Certificate Transparency", "Craigslist Search", "Default Password Search", "DNS Reconnaissance Search", "Doing Business Search", "Domain Fuzzer - All Extensions",
                          "Domain Fuzzer - Punycode (Comprehensive)", "Domain Fuzzer - Punycode (Condensed)", "Domain Fuzzer - Global Domain Suffixes", "Domain Fuzzer - Regular Domain Suffixes", "DuckDuckGo Search", "Ebay Search", "Flickr Search", "Google Search", "Have I Been Pwned - Password Search",
@@ -3085,14 +3085,19 @@ if __name__ == '__main__':
 
                                             else:
 
-                                                if not check_security_requirements(Content['Password']):
-                                                    return jsonify({"Error": "The supplied password does not meet security complexity requirements."}), 500
+                                                if not check_password_hash(User[2], Content['Password']):
+
+                                                    if not check_security_requirements(Content['Password']):
+                                                        return jsonify({"Error": "The supplied password does not meet security complexity requirements."}), 500
+
+                                                    else:
+                                                        Password = generate_password_hash(Content['Password'])
+                                                        Cursor.execute('UPDATE users SET password = %s WHERE user_id = %s', (Password, accountid,))
+                                                        Connection.commit()
+                                                        return jsonify({"Message": f"Successfully changed password for user {User[1]}."}), 200
 
                                                 else:
-                                                    Password = generate_password_hash(Content['Password'])
-                                                    Cursor.execute('UPDATE users SET password = %s WHERE user_id = %s', (Password, accountid,))
-                                                    Connection.commit()
-                                                    return jsonify({"Message": f"Successfully changed password for user {User[1]}."}), 200
+                                                    return jsonify({"Message": "Your current password and new password cannot be the same."}), 200
 
                                         else:
                                             return jsonify({"Error": f"Could not find any users with the account ID {str(accountid)}"}), 500
@@ -3153,27 +3158,36 @@ if __name__ == '__main__':
 
                             else:
 
-                                if not check_security_requirements(request.form['New_Password']):
-                                    return render_template('account.html', username=session.get('user'),
-                                                           form_step=session.get('form_step'),
-                                                           is_admin=session.get('is_admin'), requirement_error=[
-                                            "The supplied password does not meet security requirements. Please make sure the following is met:",
-                                            "- The password is longer that 8 characters.",
-                                            "- The password contains 1 or more UPPERCASE and 1 or more lowercase character.",
-                                            "- The password contains 1 or more number.",
-                                            "- The password contains one or more special character. Ex. @."],
-                                                           api_key=session.get('api_key'),
-                                                           current_user_id=account)
+                                if not check_password_hash(User[2], request.form['New_Password']):
+
+                                    if not check_security_requirements(request.form['New_Password']):
+                                        return render_template('account.html', username=session.get('user'),
+                                                               form_step=session.get('form_step'),
+                                                               is_admin=session.get('is_admin'), requirement_error=[
+                                                "The supplied password does not meet security requirements. Please make sure the following is met:",
+                                                "- The password is longer that 8 characters.",
+                                                "- The password contains 1 or more UPPERCASE and 1 or more lowercase character.",
+                                                "- The password contains 1 or more number.",
+                                                "- The password contains one or more special character. Ex. @."],
+                                                               api_key=session.get('api_key'),
+                                                               current_user_id=account)
+
+                                    else:
+                                        password = generate_password_hash(request.form['New_Password'])
+                                        Cursor.execute('UPDATE users SET password = %s WHERE user_id = %s', (password, User[0],))
+                                        Connection.commit()
+                                        return render_template('account.html', username=session.get('user'),
+                                                               form_step=session.get('form_step'),
+                                                               is_admin=session.get('is_admin'), message="Password changed.",
+                                                               api_key=session.get('api_key'),
+                                                               current_user_id=account)
 
                                 else:
-                                    password = generate_password_hash(request.form['New_Password'])
-                                    Cursor.execute('UPDATE users SET password = %s WHERE user_id = %s', (password, User[0],))
-                                    Connection.commit()
                                     return render_template('account.html', username=session.get('user'),
-                                                           form_step=session.get('form_step'),
-                                                           is_admin=session.get('is_admin'), message="Password changed.",
-                                                           api_key=session.get('api_key'),
-                                                           current_user_id=account)
+                                                       form_step=session.get('form_step'), is_admin=session.get('is_admin'),
+                                                       error="Your current password and new password cannot be the same.",
+                                                       api_key=session.get('api_key'),
+                                                       current_user_id=account)
 
                     else:
 
