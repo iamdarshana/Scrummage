@@ -3,8 +3,8 @@
 # Installation
 **PLEASE FOLLOW CAREFULLY AS THERE IS INFORMATION PRINTED IN THE TERMINAL THAT WILL NEED TO BE RETAINED**
 
-**This tool currently supports Debian, RHEL, and SUSE based Linux distributions.**
-**Ubuntu 18.04 + is recommended.**
+**This tool currently supports Debian, RHEL, and SUSE based Linux distributions.**  
+**Ubuntu versions over 18.04 are recommended. Ubuntu 20.04 is ideal.**
 
 1. Clone this repository to the location where you want to run the web application.  
 ```console
