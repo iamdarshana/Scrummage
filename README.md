@@ -59,14 +59,6 @@ For optimisation purposes, the results table only displays some of the general i
   
 ![Results](/installation/images_dark_theme/Result_Details1.png)
 
-*Results are categorised into the following:*  
-* Data Leakage
-* Domain Spoof
-* Phishing
-* Exploit
-* Blockchain Address
-* Blockchain Transaction
-
 **Tasks**  
 The tasks page shows all created task, and provides the ability for the user to run each task.
 This page doesn’t have a limit on tasks; however, don’t go crazy creating tasks, you can always add a list to a task, rather than having the same task created multiple times for one search. So really you shouldn’t have any more than 50 tasks.
