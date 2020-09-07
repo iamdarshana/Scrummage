@@ -77,7 +77,7 @@ class Fuzzer:
         except:
             logging.info(f"{General.Date()} {__name__.strip('plugins.')} - Failed to resolve hostname {Query} to IP address.")
 
-    def Character_Switch(self, Comprehensive_Search):
+    def Character_Switch(self, Alphabets, Comprehensive_Search):
 
         try:
             Local_Plugin_Name = self.Plugin_Name + "-Character-Switch"
@@ -116,23 +116,46 @@ class Fuzzer:
                 logging.info(f'{General.Date()} - Provided domain body - {self.URL_Body}')
                 URL_List = list(self.URL_Body.lower())
 
-                if not Comprehensive_Search:
+                if Alphabets == "Phoenetic":
+                    Local_Plugin_Name = f"{Local_Plugin_Name}-Phoenetic"
+
+                    if not Comprehensive_Search:
+
+                        if len(self.URL_Body) > 15:
+                            logging.error(f"{General.Date()} - {__name__.strip('plugins.')} - The length of the body of the provided query: {Query} is greater than 15 characters in length. Condensed punycode domain fuzzing only allows a maximum of 15 characters.")
+                            return None
+
+                        else:
+                            Altered_URLs = Rotor.Search(URL_List, English_Upper=False, Numbers=False, Special_Characters=False, Asian=False, Phoenetic=True, Middle_Eastern=False, Phoenetic_Alternatives=True, Comprehensive=False)
+
+                    else:
+
+                        if len(self.URL_Body) > 10:
+                            logging.error(f"{General.Date()} - {__name__.strip('plugins.')} - The length of the body of the provided query: {Query} is greater than 10 characters in length. Comprehensive punycode domain fuzzing searching only allows a maximum of 10 characters.")
+                            return None
+
+                        else:
+                            Altered_URLs = Rotor.Search(URL_List, English_Upper=False, Numbers=False, Special_Characters=False, Asian=False, Phoenetic=True, Middle_Eastern=False, Phoenetic_Alternatives=True, Comprehensive=True)
+
+                elif Alphabets == "Asian":
+                    Local_Plugin_Name = f"{Local_Plugin_Name}-Asian"
 
                     if len(self.URL_Body) > 15:
-                        logging.error(f"{General.Date()} - {__name__.strip('plugins.')} - The length of the body of the provided query: {Query} is greater than 10 characters in length. Condensed punycode domain fuzzing only allows a maximum of 10 characters.")
+                        logging.error(f"{General.Date()} - {__name__.strip('plugins.')} - The length of the body of the provided query: {Query} is greater than 15 characters in length. Punycode domain fuzzing for Asian alphabets only allows a maximum of 15 characters.")
                         return None
 
                     else:
-                        Altered_URLs = Rotor.Search(URL_List, English_Lower=True, English_Upper=False, Numbers=False, Special_Characters=False, Cyrillic=True, Greek=True, Phoenetic_Alternatives=False, Comprehensive=False)
+                        Altered_URLs = Rotor.Search(URL_List, English_Upper=False, Numbers=False, Special_Characters=False, Asian=True, Phoenetic=False, Middle_Eastern=False, Phoenetic_Alternatives=False, Comprehensive=False)
 
-                else:
+                elif Alphabets == "Middle Eastern":
+                    Local_Plugin_Name = f"{Local_Plugin_Name}-Middle-Eastern"
 
-                    if len(self.URL_Body) > 10:
-                        logging.error(f"{General.Date()} - {__name__.strip('plugins.')} - The length of the body of the provided query: {Query} is greater than 10 characters in length. Comprehensive punycode domain fuzzing searching only allows a maximum of 10 characters.")
+                    if len(self.URL_Body) > 15:
+                        logging.error(f"{General.Date()} - {__name__.strip('plugins.')} - The length of the body of the provided query: {Query} is greater than 15 characters in length. Punycode domain fuzzing for Middle Eastern alphabets only allows a maximum of 15 characters.")
                         return None
 
                     else:
-                        Altered_URLs = Rotor.Search(URL_List, English_Lower=True, English_Upper=False, Numbers=False, Special_Characters=False, Cyrillic=True, Greek=True, Phoenetic_Alternatives=True, Comprehensive=True)
+                        Altered_URLs = Rotor.Search(URL_List, English_Upper=False, Numbers=False, Special_Characters=False, Asian=False, Phoenetic=False, Middle_Eastern=True, Phoenetic_Alternatives=False, Comprehensive=False)
 
                 logging.info(f'{General.Date()} - Generated domain combinations - {", ".join(Altered_URLs)}')
                 Pool = mpool.ThreadPool(int(multiprocessing.cpu_count())*int(multiprocessing.cpu_count()))

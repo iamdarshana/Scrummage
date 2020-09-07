@@ -159,15 +159,25 @@ class Plugin_Caller:
                 Domain_Fuzz_Obj = Domain_Fuzzer.Fuzzer(self.query, self.task_id)
                 Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Global_Extensions)
 
-            elif self.plugin_name == "Domain Fuzzer - Punycode (Comprehensive)":
+            elif self.plugin_name == "Domain Fuzzer - Punycode (Phoenetic Comprehensive)":
                 import plugins.Domain_Fuzzer as Domain_Fuzzer
                 Domain_Fuzz_Obj = Domain_Fuzzer.Fuzzer(self.query, self.task_id)
-                Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Character_Switch, args=(True,))
+                Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Character_Switch, args=("Phoenetic", True,))
 
-            elif self.plugin_name == "Domain Fuzzer - Punycode (Condensed)":
+            elif self.plugin_name == "Domain Fuzzer - Punycode (Phoenetic Condensed)":
                 import plugins.Domain_Fuzzer as Domain_Fuzzer
                 Domain_Fuzz_Obj = Domain_Fuzzer.Fuzzer(self.query, self.task_id)
-                Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Character_Switch, args=(False,))
+                Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Character_Switch, args=("Phoenetic", False,))
+
+            elif self.plugin_name == "Domain Fuzzer - Punycode (Asian)":
+                import plugins.Domain_Fuzzer as Domain_Fuzzer
+                Domain_Fuzz_Obj = Domain_Fuzzer.Fuzzer(self.query, self.task_id)
+                Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Character_Switch, args=("Asian", False,))
+
+            elif self.plugin_name == "Domain Fuzzer - Punycode (Middle Eastern)":
+                import plugins.Domain_Fuzzer as Domain_Fuzzer
+                Domain_Fuzz_Obj = Domain_Fuzzer.Fuzzer(self.query, self.task_id)
+                Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Character_Switch, args=("Middle Eastern", False,))
 
             elif self.plugin_name == "Domain Fuzzer - All Extensions":
                 import plugins.Domain_Fuzzer as Domain_Fuzzer
