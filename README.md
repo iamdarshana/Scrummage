@@ -3,13 +3,9 @@
 
 # Scrummage  
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)  
-**VERSION 2.5**
-- Major UI Improvements.
-- Lots of New Plugins. Read more [here](https://github.com/matamorphosis/Scrummage/wiki/The-Long-List-of-Tasks).
-- Code enhancements.
-- Resolved PlayStore Plugin bug.
-- More verbose result types.
-- New API endpoints to manage tasks, results, accounts, etc. Refer to the [Wiki Page](https://github.com/matamorphosis/Scrummage/wiki/The-Scrummage-API).  
+**VERSION 2.6**
+- New Options for the Domain Fuzzer - Punycode plugin. Read more [here](https://github.com/matamorphosis/Scrummage/wiki/The-Long-List-of-Tasks).
+- Code enhancements / bug fixes.  
   
 Scrummage is an OSINT tool that centralises search functionality from powerful, yet simple OSINT sites. This project draws inspiration mainly from two other projects, including:  
 - The https://github.com/Netflix-Skunkworks/Scumblr project, which while is now deprecated, inspired this concept.
