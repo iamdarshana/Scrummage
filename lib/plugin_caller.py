@@ -159,15 +159,15 @@ class Plugin_Caller:
                 Domain_Fuzz_Obj = Domain_Fuzzer.Fuzzer(self.query, self.task_id)
                 Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Global_Extensions)
 
-            elif self.plugin_name == "Domain Fuzzer - Punycode (Phoenetic Comprehensive)":
+            elif self.plugin_name == "Domain Fuzzer - Punycode (Latin Comprehensive)":
                 import plugins.Domain_Fuzzer as Domain_Fuzzer
                 Domain_Fuzz_Obj = Domain_Fuzzer.Fuzzer(self.query, self.task_id)
-                Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Character_Switch, args=("Phoenetic", True,))
+                Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Character_Switch, args=("Latin", True,))
 
-            elif self.plugin_name == "Domain Fuzzer - Punycode (Phoenetic Condensed)":
+            elif self.plugin_name == "Domain Fuzzer - Punycode (Latin Condensed)":
                 import plugins.Domain_Fuzzer as Domain_Fuzzer
                 Domain_Fuzz_Obj = Domain_Fuzzer.Fuzzer(self.query, self.task_id)
-                Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Character_Switch, args=("Phoenetic", False,))
+                Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Character_Switch, args=("Latin", False,))
 
             elif self.plugin_name == "Domain Fuzzer - Punycode (Asian)":
                 import plugins.Domain_Fuzzer as Domain_Fuzzer
@@ -178,6 +178,16 @@ class Plugin_Caller:
                 import plugins.Domain_Fuzzer as Domain_Fuzzer
                 Domain_Fuzz_Obj = Domain_Fuzzer.Fuzzer(self.query, self.task_id)
                 Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Character_Switch, args=("Middle Eastern", False,))
+
+            elif self.plugin_name == "Domain Fuzzer - Punycode (North African)":
+                import plugins.Domain_Fuzzer as Domain_Fuzzer
+                Domain_Fuzz_Obj = Domain_Fuzzer.Fuzzer(self.query, self.task_id)
+                Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Character_Switch, args=("North African", False,))
+
+            elif self.plugin_name == "Domain Fuzzer - Punycode (Native American)":
+                import plugins.Domain_Fuzzer as Domain_Fuzzer
+                Domain_Fuzz_Obj = Domain_Fuzzer.Fuzzer(self.query, self.task_id)
+                Thread_1 = threading.Thread(target=Domain_Fuzz_Obj.Character_Switch, args=("Native American", False,))
 
             elif self.plugin_name == "Domain Fuzzer - All Extensions":
                 import plugins.Domain_Fuzzer as Domain_Fuzzer
